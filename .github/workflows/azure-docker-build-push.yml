@@ -48,7 +48,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t $REGISTRY_NAME/$IMAGE_NAME:${{ steps.get-version.outputs.version }} -f Application/slndemoapp/demoapp/Dockerfile .
+          docker build -t $REGISTRY_NAME/$IMAGE_NAME:${{ steps.get-version.outputs.version }} .
 
       - name: Push image to ACR
         run: |
