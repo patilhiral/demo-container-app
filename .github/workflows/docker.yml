@@ -49,7 +49,7 @@ jobs:
       # Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerdemoapp:latest Application/slndemoapp/demoapp
+          docker build -t ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerdemoapp:latest -f Application/slndemoapp/demoapp/Dockerfile .
           docker tag ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerdemoapp:latest ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerDemoApp:${{ github.sha }}
 
       # Push Docker image to Azure Container Registry
