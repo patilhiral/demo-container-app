@@ -46,6 +46,11 @@ jobs:
           echo "New version: $NEW_VERSION"
           echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
+      - name: List files before build
+        run: |
+          ls -R
+          echo "Current directory: $(pwd)"
+
       - name: Build Docker image
         run: |
           docker build -t $REGISTRY_NAME/$IMAGE_NAME:${{ steps.get-version.outputs.version }} -f Application/slndemoapp/demoapp/Dockerfile .

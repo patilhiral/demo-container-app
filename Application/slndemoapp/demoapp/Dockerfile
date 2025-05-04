@@ -10,7 +10,7 @@ EXPOSE 8080
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
-WORKDIR /src/Application/slndemoapp
+WORKDIR /src/Application/slndemoapp/demoapp
 COPY ["demoapp/demoapp.csproj", "demoapp/"]
 RUN dotnet restore "./demoapp/demoapp.csproj"
 COPY . .
