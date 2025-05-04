@@ -23,7 +23,7 @@ jobs:
       # Restore dependencies
       - name: Restore dependencies
         run: |
-          cd Application
+          cd Application/demoapp
           dotnet restore slndemoapp.sln
 
       # Build the application
