@@ -12,15 +12,15 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /Application/src/slndemoapp
 COPY ["Application/slndemoapp/demoapp/demoapp.csproj", "Application/slndemoapp/demoapp/"]
-RUN dotnet restore "./demoapp/demoapp.csproj"
+RUN dotnet restore "Application/slndemoapp/demoapp/demoapp.csproj"
 COPY . .
 WORKDIR "/Application/slndemoapp/demoapp/"
-RUN dotnet build "./demoapp.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "Application/slndemoapp/demoapp/demoapp.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./demoapp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Application/slndemoapp/demoapp/demoapp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
