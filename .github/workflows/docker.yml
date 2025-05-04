@@ -28,11 +28,15 @@ jobs:
 
       # Build the application
       - name: Build the application
-        run: dotnet build slndemoapp.sln --configuration Release
+        run: |
+          cd Application/slndemoapp/demoapp
+          dotnet build demoapp.csproj --configuration Release
 
       # Publish the application to create the deployment artifacts
       - name: Publish the application
-        run: dotnet publish slndemoapp.sln --configuration Release --output ./publish
+        run: |
+          cd Application/slndemoapp/demoapp
+          dotnet publish demoapp.csproj --configuration Release --output ./publish
 
       # Log in to Azure Container Registry
       - name: Log in to Azure Container Registry
