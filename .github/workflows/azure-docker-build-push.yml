@@ -48,7 +48,7 @@ jobs:
 
       - name: List files before build
         run: |
-          ls -R
+          ls -1 -d "$PWD/"*
           echo "Current directory: $(pwd)"
 
       - name: Build Docker image
