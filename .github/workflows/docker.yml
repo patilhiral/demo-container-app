@@ -49,11 +49,11 @@ jobs:
       # Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerDemoApp:latest .
-          docker tag ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerDemoApp:latest ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerDemoApp:${{ github.sha }}
+          docker build -t ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerdemoapp:latest .
+          docker tag ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerdemoapp:latest ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerDemoApp:${{ github.sha }}
 
       # Push Docker image to Azure Container Registry
       - name: Push Docker image to Azure Container Registry
         run: |
-          docker push ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerDemoApp:latest
-          docker push ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerDemoApp:${{ github.sha }}
+          docker push ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerdemoapp:latest
+          docker push ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerdemoapp:${{ github.sha }}
