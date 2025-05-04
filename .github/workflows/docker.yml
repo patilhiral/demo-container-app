@@ -22,15 +22,17 @@ jobs:
 
       # Restore dependencies
       - name: Restore dependencies
-        run: dotnet restore ./Application/slndemoapp.sln # Adjust the path to your solution file
+        run: |
+          cd Application
+          dotnet restore slndemoapp.sln
 
       # Build the application
       - name: Build the application
-        run: dotnet build --configuration Release
+        run: dotnet build slndemoapp.sln --configuration Release
 
       # Publish the application to create the deployment artifacts
       - name: Publish the application
-        run: dotnet publish --configuration Release --output ./publish
+        run: dotnet publish slndemoapp.sln --configuration Release --output ./publish
 
       # Log in to Azure Container Registry
       - name: Log in to Azure Container Registry
