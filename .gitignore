@@ -1,2 +1,4 @@
 /Infrastructure/.terraform/
 /Application/slndemoapp/.vs
+/Application/slndemoapp/demoapp/obj
+/Application/slndemoapp/demoapp/bin

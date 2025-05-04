@@ -1,0 +1,53 @@
+name: Build and Publish .NET Core Web API to ACR
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Set up .NET SDK
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: "8.0" # Change this if you're using a different version of .NET
+
+      # Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # Build the application
+      - name: Build the application
+        run: dotnet build --configuration Release
+
+      # Publish the application to create the deployment artifacts
+      - name: Publish the application
+        run: dotnet publish --configuration Release --output ./publish
+
+      # Log in to Azure Container Registry
+      - name: Log in to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.AZURE_ACR_LOGIN_SERVER }} # Set ACR login server in GitHub secrets
+          username: ${{ secrets.AZURE_CLIENT_ID }} # Azure Service Principal Client ID
+          password: ${{ secrets.AZURE_CLIENT_SECRET }} # Azure Service Principal Client Secret
+
+      # Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerDemoApp:latest .
+          docker tag ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerDemoApp:latest ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerDemoApp:${{ github.sha }}
+
+      # Push Docker image to Azure Container Registry
+      - name: Push Docker image to Azure Container Registry
+        run: |
+          docker push ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerDemoApp:latest
+          docker push ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/containerDemoApp:${{ github.sha }}
