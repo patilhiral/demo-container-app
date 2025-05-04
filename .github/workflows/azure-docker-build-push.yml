@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  REGISTRY_NAME: ${{ secrets.AZURE_CLIENT_ID }}
+  REGISTRY_NAME: ${{ secrets.AZURE_ACR_LOGIN_SERVER}}
   IMAGE_NAME: containerdemoapp
 
 jobs:
