@@ -20,7 +20,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "8.0" # Change to match your version
+          dotnet-version: "8.0" 
 
       - name: Log in to Azure using service principal
         run: |
