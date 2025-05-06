@@ -19,5 +19,5 @@ variable "web_app_name" {
 }
 
 variable "docker_image_name" {
-  default = "containerDemoApp:latest"
+  default = "containerdemoapp:latest"
 }
